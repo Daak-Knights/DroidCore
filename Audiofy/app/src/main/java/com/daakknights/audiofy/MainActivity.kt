@@ -12,6 +12,7 @@ import com.daakknights.audiofy.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var _binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
