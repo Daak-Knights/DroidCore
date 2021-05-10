@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Room</string>
+    <string name="add_dream">Add Dream</string>
+    <string name="hint">Dream…</string>
+    <string name="button_save">Save</string>
+    <string name="empty_error">Please enter non empty string as dream.</string>
 </resources>
