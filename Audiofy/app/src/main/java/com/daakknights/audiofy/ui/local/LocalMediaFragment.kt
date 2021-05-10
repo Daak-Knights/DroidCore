@@ -97,6 +97,10 @@ class LocalMediaFragment : Fragment() {
                 _binding.btnPlayer.text = resources.getString(R.string.play)
                 stop()
             }
+            /*
+            commented out release for this demo purpose, ideally we should be releasing the
+            media player when not needed
+            * */
             /* release()*/
         }
     }
