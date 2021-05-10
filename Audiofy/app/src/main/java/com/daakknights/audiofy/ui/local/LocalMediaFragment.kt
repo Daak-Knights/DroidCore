@@ -70,6 +70,9 @@ class LocalMediaFragment : Fragment() {
     }
 
     private fun getUri(): Uri {
+        /*
+        Environment.getExternalStorageDirectory() is deprecated need to check the alternative
+        */
         val filePath = Environment.getExternalStorageDirectory().toString() + "/Music/fast_car.mp3"
         val file =
             File(
@@ -98,6 +101,10 @@ class LocalMediaFragment : Fragment() {
         _binding.btnPlayer.text = resources.getString(R.string.play)
     }
 
+    /*
+    music is stopped everytime the onStop() is called, done on purpose,
+    will update in the next release.
+    */
     override fun onStop() {
         releasePlayer()
         super.onStop()
