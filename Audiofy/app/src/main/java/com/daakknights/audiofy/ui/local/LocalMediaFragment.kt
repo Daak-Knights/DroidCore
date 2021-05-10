@@ -2,7 +2,11 @@ package com.daakknights.audiofy.ui.local
 
 import android.media.AudioAttributes
 import android.media.MediaPlayer
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
+import android.os.Environment.DIRECTORY_MUSIC
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +16,7 @@ import com.daakknights.audiofy.databinding.FragmentLocalMediaBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import java.net.URI
+import java.io.File
 
 
 class LocalMediaFragment : Fragment() {
@@ -41,12 +45,13 @@ class LocalMediaFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        getUri()
         initMediaPlayer()
     }
 
     private fun initMediaPlayer() {
         GlobalScope.launch(Dispatchers.IO) {
-            /*val uri: URI = ""*/
+            val uri = getUri()
             mediaPlayer = MediaPlayer().apply {
                 setAudioAttributes(
                     AudioAttributes.Builder()
@@ -54,7 +59,7 @@ class LocalMediaFragment : Fragment() {
                         .setUsage(AudioAttributes.USAGE_MEDIA)
                         .build()
                 )
-                setDataSource("")
+                setDataSource(requireContext(), uri)
                 prepare()
                 launch(Dispatchers.Main) {
                     _binding.pbDownload.visibility = View.GONE
@@ -62,6 +67,15 @@ class LocalMediaFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun getUri(): Uri {
+        val filePath = Environment.getExternalStorageDirectory().toString() + "/Music/fast_car.mp3"
+        val file =
+            File(
+                filePath
+            )
+        return Uri.fromFile(file)
     }
 
     private fun playMediaPlayer() {
