@@ -3,23 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_raw">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.daakknights.audiofy.ui.home.HomeFragment"
+        android:id="@+id/navigation_raw"
+        android:name="com.daakknights.audiofy.ui.raw.RawMediaFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_raw_media" />
+
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.daakknights.audiofy.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_local"
+        android:name="com.daakknights.audiofy.ui.local.LocalMediaFragment"
+        android:label="@string/title_local"
+        tools:layout="@layout/fragment_local_media" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.daakknights.audiofy.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_online"
+        android:name="com.daakknights.audiofy.ui.online.OnlineMediaFragment"
+        android:label="@string/title_online"
+        tools:layout="@layout/fragment_raw_media" />
+
+    <fragment
+        android:id="@+id/navigation_stream"
+        android:name="com.daakknights.audiofy.ui.raw.RawMediaFragment"
+        android:label="@string/title_stream"
+        tools:layout="@layout/fragment_raw_media" />
+
 </navigation>

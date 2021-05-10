@@ -1,4 +1,4 @@
-package com.daakknights.audiofy.ui.home
+package com.daakknights.audiofy.ui.raw
 
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -7,13 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.daakknights.audiofy.R
-import com.daakknights.audiofy.databinding.FragmentHomeBinding
+import com.daakknights.audiofy.databinding.FragmentRawMediaBinding
 
-class HomeFragment : Fragment() {
+class RawMediaFragment : Fragment() {
 
-    private lateinit var _binding: FragmentHomeBinding
-    private var isPlaying: Boolean = false
-    private var isPaused: Boolean = false
+    private lateinit var _binding: FragmentRawMediaBinding
+    private var isMediaPlaying: Boolean = false
+    private var isMediaPaused: Boolean = false
     private var playBackPosition: Int = 0
 
     private lateinit var mediaPlayer: MediaPlayer
@@ -26,10 +26,10 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentRawMediaBinding.inflate(inflater, container, false)
 
         _binding.btnPlayer.setOnClickListener {
-            if (!isPlaying) {
+            if (!isMediaPlaying) {
                 playMediaPlayer()
             } else {
                 pauseMediaPlayer()
@@ -39,41 +39,43 @@ class HomeFragment : Fragment() {
         return _binding.root
     }
 
-    private fun playMediaPlayer() {
-        mediaPlayer.apply {
-            seekTo(playBackPosition)
-            start()
-        }
-        isPlaying = true
-        isPaused = false
-        _binding.btnPlayer.text = resources.getString(R.string.pause)
-    }
-
-
-    private fun pauseMediaPlayer() {
-        mediaPlayer.let {
-            mediaPlayer.pause()
-        }
-        playBackPosition = mediaPlayer.currentPosition
-        isPlaying = false
-        isPaused = true
-        _binding.btnPlayer.text = resources.getString(R.string.play)
-    }
-
     override fun onResume() {
         super.onResume()
         mediaPlayer = MediaPlayer.create(context, R.raw.audio_long)
     }
 
+    private fun playMediaPlayer() {
+        mediaPlayer.apply {
+            seekTo(playBackPosition)
+            start()
+        }
+        isMediaPlaying = true
+        isMediaPaused = false
+        _binding.btnPlayer.text = resources.getString(R.string.pause)
+    }
+
+
+    private fun pauseMediaPlayer() {
+        if (mediaPlayer.isPlaying) {
+            mediaPlayer.pause()
+            playBackPosition = mediaPlayer.currentPosition
+        }
+        isMediaPlaying = false
+        isMediaPaused = true
+        _binding.btnPlayer.text = resources.getString(R.string.play)
+    }
+
     override fun onStop() {
-        super.onStop()
         releasePlayer()
+        super.onStop()
     }
 
     private fun releasePlayer() {
         mediaPlayer.apply {
-            if (mediaPlayer.isPlaying || isPaused) {
-                playBackPosition = mediaPlayer.currentPosition
+            if (isPlaying || isMediaPaused) {
+                playBackPosition = currentPosition
+                isMediaPlaying = false
+                _binding.btnPlayer.text = resources.getString(R.string.play)
                 stop()
             }
             release()
