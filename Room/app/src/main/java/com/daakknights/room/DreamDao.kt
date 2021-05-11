@@ -1,9 +1,6 @@
 package com.daakknights.room
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -16,4 +13,7 @@ interface DreamDao {
 
     @Query("DELETE FROM bucket_list_table")
     suspend fun deleteAll()
+
+    @Delete()
+    suspend fun delete(dream: Dream)
 }

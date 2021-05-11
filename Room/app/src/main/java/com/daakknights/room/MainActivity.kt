@@ -10,12 +10,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), DreamListAdapter.OnItemClick {
+    val adapter: DreamListAdapter = DreamListAdapter(this)
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
-        val adapter = DreamListAdapter()
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
         dreamViewModel.allDreams.observe(this, { dreams ->
@@ -49,4 +50,10 @@ class MainActivity : AppCompatActivity() {
             ).show()
         }
     }
+
+    override fun onDeleteClick(positionToDelete: Int) {
+        dreamViewModel.delete(adapter.currentList[positionToDelete])
+    }
+
+
 }
