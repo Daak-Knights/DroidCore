@@ -14,6 +14,9 @@ class DreamViewModel(private val repository: DreamRepository) : ViewModel() {
     fun delete(dream: Dream) = viewModelScope.launch {
         repository.delete(dream)
     }
+    fun update(dream: Dream) = viewModelScope.launch {
+        repository.update(dream)
+    }
 }
 
 class DreamViewModelFactory(private val repository: DreamRepository) : ViewModelProvider.Factory {

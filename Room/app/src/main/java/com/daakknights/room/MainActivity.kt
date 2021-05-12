@@ -51,9 +51,12 @@ class MainActivity : AppCompatActivity(), DreamListAdapter.OnItemClick {
         }
     }
 
-    override fun onDeleteClick(positionToDelete: Int) {
-        dreamViewModel.delete(adapter.currentList[positionToDelete])
+    override fun onDelete(dream: Dream) {
+        dreamViewModel.delete(dream)
     }
 
+    override fun onUpdate(dream: Dream) {
+        dreamViewModel.update(dream)
+    }
 
 }

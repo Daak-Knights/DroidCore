@@ -18,24 +18,46 @@ class DreamListAdapter(onItemClick: OnItemClick) :
 
     override fun onBindViewHolder(holder: DreamViewHolder, position: Int) {
         val current = getItem(position)
-        holder.bind(current.dream)
+        holder.bind(current)
     }
 
     class DreamViewHolder(itemView: View, private val onItemClick: OnItemClick) :
         RecyclerView.ViewHolder(itemView) {
-        private val dreamItemView: TextView = itemView.findViewById(R.id.tvDream)
-        private val deleteDream: ImageView = itemView.findViewById(R.id.ivDreamDelete)
-        fun bind(text: String?) {
-            dreamItemView.text = text
-            deleteDream.setOnClickListener { onItemClick.onDeleteClick((adapterPosition)) }
+        private val dreamTV: TextView = itemView.findViewById(R.id.tvDream)
+        private val dreamET: TextView = itemView.findViewById(R.id.etDream)
+        private val deleteDreamIV: ImageView = itemView.findViewById(R.id.ivDreamDelete)
+        private val editDreamIV: ImageView = itemView.findViewById(R.id.ivDreamEdit)
+        private val doneDreamIV: ImageView = itemView.findViewById(R.id.ivDreamDone)
+        fun bind(dream: Dream) {
+            dreamTV.text = dream.dream
+            dreamET.text = dream.dream
+            deleteDreamIV.setOnClickListener { onItemClick.onDelete(dream) }
+            editDreamIV.setOnClickListener {
+                onEditClick(false)
+            }
+            doneDreamIV.setOnClickListener {
+                onEditClick(true)
+                dream.dream = dreamET.editableText.toString()
+                onItemClick.onUpdate(dream)
+            }
 
         }
+
+        private fun onEditClick(isDreamEdited: Boolean) {
+            dreamET.visibility = if (isDreamEdited) View.GONE else View.VISIBLE
+            dreamTV.visibility = if (isDreamEdited) View.VISIBLE else View.GONE
+            editDreamIV.visibility = if (isDreamEdited) View.VISIBLE else View.GONE
+            deleteDreamIV.visibility = if (isDreamEdited) View.VISIBLE else View.GONE
+            doneDreamIV.visibility = if (isDreamEdited) View.GONE else View.VISIBLE
+            dreamTV.text = dreamET.text
+        }
+
 
         companion object {
             fun create(parent: ViewGroup, onItemClick: OnItemClick): DreamViewHolder {
                 val view: View = LayoutInflater.from(parent.context)
                     .inflate(R.layout.dreams_recycler_view_item, parent, false)
-                return DreamViewHolder(view,onItemClick)
+                return DreamViewHolder(view, onItemClick)
             }
         }
     }
@@ -51,6 +73,7 @@ class DreamListAdapter(onItemClick: OnItemClick) :
     }
 
     interface OnItemClick {
-        fun onDeleteClick(positionToDelete: Int)
+        fun onDelete(dream: Dream)
+        fun onUpdate(dream: Dream)
     }
 }

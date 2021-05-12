@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "bucket_list_table")
 data class Dream(
-    @ColumnInfo(name = "dream") val dream: String
+    @ColumnInfo(name = "dream") var dream: String
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0

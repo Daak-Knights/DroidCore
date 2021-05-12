@@ -7,12 +7,41 @@
 
     <TextView
         android:id="@+id/tvDream"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:padding="16dp"
         android:textSize="25sp"
         tools:text="Dream" />
+
+    <EditText
+        android:id="@+id/etDream"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="16dp"
+        android:textSize="25sp"
+        android:visibility="gone"
+        tools:text="Dream" />
+
+    <ImageView
+        android:id="@+id/ivDreamEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="16dp"
+        android:src="@drawable/edit"
+        android:textSize="25sp" />
+
+    <ImageView
+        android:id="@+id/ivDreamDone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="16dp"
+        android:src="@drawable/done"
+        android:textSize="25sp"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/ivDreamDelete"
@@ -21,6 +50,5 @@
         android:layout_gravity="center"
         android:padding="16dp"
         android:src="@drawable/delete"
-        android:textSize="25sp"
-        tools:text="Dream" />
+        android:textSize="25sp" />
 </LinearLayout>

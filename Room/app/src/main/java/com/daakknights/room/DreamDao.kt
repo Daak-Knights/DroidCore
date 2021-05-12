@@ -16,4 +16,7 @@ interface DreamDao {
 
     @Delete()
     suspend fun delete(dream: Dream)
+
+    @Update
+    suspend fun update(dream: Dream)
 }

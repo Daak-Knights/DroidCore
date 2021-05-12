@@ -15,4 +15,9 @@ class DreamRepository(private val dreamDao: DreamDao) {
     suspend fun delete(dream: Dream) {
         dreamDao.delete(dream)
     }
+
+    @WorkerThread
+    suspend fun update(dream: Dream) {
+        dreamDao.update(dream)
+    }
 }
